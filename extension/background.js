@@ -28,8 +28,20 @@ const ready = (async () => {
 
 async function persistState() {
   try {
+    // Mirror the host-only privacy promise: never persist paths or queries,
+    // even to session storage. Origin-only is enough to resume tracking.
+    let safeTab = currentTab;
+    if (currentTab && currentTab.url) {
+      try {
+        const u = new URL(currentTab.url);
+        safeTab = { ...currentTab, url: u.origin + "/" };
+      } catch { /* malformed URL — drop it entirely */
+        safeTab = { ...currentTab };
+        delete safeTab.url;
+      }
+    }
     await chrome.storage.session.set({
-      currentTab: currentTab || null,
+      currentTab: safeTab || null,
       isIdle: !!isIdle,
     });
   } catch (e) { /* ignore */ }
@@ -55,10 +67,17 @@ async function flushCurrent() {
   }
   const dom = dayData.domains[currentTab.domain];
   dom.seconds += elapsed;
-  // Store the latest URL we saw for this domain. The popup uses it for
-  // favicon lookups — Chrome's _favicon API matches by exact URL form, so
-  // querying the URL the user actually visited guarantees a cache hit.
-  if (currentTab.url) dom.lastUrl = currentTab.url;
+  // Persist the ORIGIN (scheme + host + "/") of the URL we last saw for this
+  // domain. Chrome's _favicon cache is keyed by exact URL — origin form is
+  // what we need for the cache hit, and stripping path+query keeps the
+  // privacy promise of "host-only" storage. NEVER persist paths, query
+  // strings, or document IDs.
+  if (currentTab.url) {
+    try {
+      const u = new URL(currentTab.url);
+      dom.lastUrl = u.origin + "/";
+    } catch { /* malformed URL — skip */ }
+  }
 
   // Session-frequency tracking — the addiction signal that simple time totals
   // miss. A new session = either we just switched domains, or we've been
