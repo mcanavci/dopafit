@@ -11,6 +11,15 @@ __pycache__/
 .vscode/
 .idea/
 
+# Claude Code session files (system prompts, transcripts) — never commit
+.claude/
+**/.claude/
+
+# Editor / OS junk
+*.swp
+*.swo
+.netrc
+
 # Local data (the running tracker writes here)
 ~/.dopaminebar/
 
