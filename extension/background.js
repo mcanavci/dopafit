@@ -55,6 +55,10 @@ async function flushCurrent() {
   }
   const dom = dayData.domains[currentTab.domain];
   dom.seconds += elapsed;
+  // Store the latest URL we saw for this domain. The popup uses it for
+  // favicon lookups — Chrome's _favicon API matches by exact URL form, so
+  // querying the URL the user actually visited guarantees a cache hit.
+  if (currentTab.url) dom.lastUrl = currentTab.url;
 
   // Session-frequency tracking — the addiction signal that simple time totals
   // miss. A new session = either we just switched domains, or we've been

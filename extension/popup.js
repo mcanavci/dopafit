@@ -34,27 +34,30 @@ function escapeHtml(s) {
 // Chrome's *local* cache — no outbound network call. Privacy intact.
 // Requires "favicon" permission in manifest (added v0.1.0).
 //
-// Chrome's cache is keyed by the URL form actually visited. Most large
-// sites (youtube.com, github.com, twitter.com) canonicalize to www., so
-// we try www first. Trailing slash matters too — Chrome stores favicons
-// per-URL, not per-host, and `https://example.com/` is the canonical root.
-function faviconUrl(domain) {
-  if (!domain) return "";
-  // Strip any leading "www." the caller didn't strip, then add it back
-  // ourselves (we want a single, predictable form).
-  const bare = domain.replace(/^www\./, "");
-  const u = encodeURIComponent("https://www." + bare + "/");
-  return chrome.runtime.getURL(`/_favicon/?pageUrl=${u}&size=32`);
+// Chrome caches favicons keyed by the EXACT URL visited. If we can pass the
+// URL the user actually visited, we get a guaranteed cache hit. background.js
+// stores `lastUrl` per domain so we can do exactly that.
+//
+// Falls back to a www-form guess for domains we haven't seen yet (e.g.
+// historical days from before this code shipped).
+function faviconUrl(urlOrDomain) {
+  if (!urlOrDomain) return "";
+  const isUrl = /^https?:\/\//.test(urlOrDomain);
+  const pageUrl = isUrl
+    ? urlOrDomain
+    : "https://www." + urlOrDomain.replace(/^www\./, "") + "/";
+  return chrome.runtime.getURL(`/_favicon/?pageUrl=${encodeURIComponent(pageUrl)}&size=32`);
 }
 
-// Fallback for sites that don't have a www subdomain (claude.ai, x.com, etc.).
-// We use it as the <img> onerror target — but we render via background-image,
-// so we instead emit a small <picture>-style cascade in renderRow when needed.
+// Fallback URL form (bare domain, no www) for sites where the www-guess
+// returned the gray placeholder. Used as <img onerror> target — but note
+// _favicon never 404s, so this only fires on rare network/disk errors.
 function faviconUrlBare(domain) {
   if (!domain) return "";
   const bare = domain.replace(/^www\./, "");
-  const u = encodeURIComponent("https://" + bare + "/");
-  return chrome.runtime.getURL(`/_favicon/?pageUrl=${u}&size=32`);
+  return chrome.runtime.getURL(
+    `/_favicon/?pageUrl=${encodeURIComponent("https://" + bare + "/")}&size=32`
+  );
 }
 
 // Score formula. Tunable here.
@@ -377,6 +380,7 @@ function reclassify(raw) {
       sessions: info.sessions || 1,
       microSessions: info.microSessions || 0,
       sessionPenaltyWeight: info.sessionPenaltyWeight || 0,
+      lastUrl: info.lastUrl || "",
     };
     tiers[tier] = (tiers[tier] || 0) + info.seconds;
   }
@@ -501,7 +505,7 @@ async function renderToday() {
   const renderRow = ([domain, info]) => {
     const fav = info.native
       ? "" // native apps already have the monitor SVG inside the name
-      : `<img class="site-favicon" src="${faviconUrl(domain)}" data-fallback="${faviconUrlBare(domain)}" alt="">`;
+      : `<img class="site-favicon" src="${faviconUrl(info.lastUrl || domain)}" data-fallback="${faviconUrlBare(domain)}" alt="">`;
     return `
     <div class="site-row" ${info.native ? 'title="Native macOS app (via local bridge)"' : ''}>
       <span class="site-tier" style="background:${TIER_COLORS[info.tier]}"></span>
