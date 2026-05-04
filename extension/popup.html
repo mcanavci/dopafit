@@ -94,12 +94,15 @@
   }
   .site-favicon {
     width: 14px; height: 14px; flex-shrink: 0;
-    background-color: #F1EFE8;
-    background-size: contain;
+    background-color: #F1EFE8;     /* placeholder while loading or on full failure */
+    background-size: contain;       /* legacy span fallback */
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 3px;
+    object-fit: contain;            /* for img tags */
+    display: inline-block;
   }
+  img.site-favicon { vertical-align: middle; }
   .site-name { flex: 1; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .site-time { font-size: 12px; font-variant-numeric: tabular-nums; color: #5F5E5A; font-weight: 500; }
   .native-marker {

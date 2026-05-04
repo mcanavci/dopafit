@@ -33,9 +33,27 @@ function escapeHtml(s) {
 // Local favicon URL via Chrome's _favicon API. Serves the favicon from
 // Chrome's *local* cache — no outbound network call. Privacy intact.
 // Requires "favicon" permission in manifest (added v0.1.0).
+//
+// Chrome's cache is keyed by the URL form actually visited. Most large
+// sites (youtube.com, github.com, twitter.com) canonicalize to www., so
+// we try www first. Trailing slash matters too — Chrome stores favicons
+// per-URL, not per-host, and `https://example.com/` is the canonical root.
 function faviconUrl(domain) {
   if (!domain) return "";
-  const u = encodeURIComponent("https://" + domain);
+  // Strip any leading "www." the caller didn't strip, then add it back
+  // ourselves (we want a single, predictable form).
+  const bare = domain.replace(/^www\./, "");
+  const u = encodeURIComponent("https://www." + bare + "/");
+  return chrome.runtime.getURL(`/_favicon/?pageUrl=${u}&size=32`);
+}
+
+// Fallback for sites that don't have a www subdomain (claude.ai, x.com, etc.).
+// We use it as the <img> onerror target — but we render via background-image,
+// so we instead emit a small <picture>-style cascade in renderRow when needed.
+function faviconUrlBare(domain) {
+  if (!domain) return "";
+  const bare = domain.replace(/^www\./, "");
+  const u = encodeURIComponent("https://" + bare + "/");
   return chrome.runtime.getURL(`/_favicon/?pageUrl=${u}&size=32`);
 }
 
@@ -247,7 +265,8 @@ function renderHourDetail(hour, rawHours) {
     return `
       <div class="row">
         <span class="dot" style="background:${TIER_COLORS[tier] || "#B4B2A9"}"></span>
-        <span class="site-favicon" style="background-image:url('${faviconUrl(domain)}'); width:11px; height:11px; border-radius:2px;"></span>
+        <img class="site-favicon" style="width:11px;height:11px;border-radius:2px;"
+             src="${faviconUrl(domain)}" data-fallback="${faviconUrlBare(domain)}" alt="">
         <span class="name">${escapeHtml(domain)}</span>
         <span class="t">${escapeHtml(fmtTime(sec))}</span>
       </div>
@@ -482,7 +501,7 @@ async function renderToday() {
   const renderRow = ([domain, info]) => {
     const fav = info.native
       ? "" // native apps already have the monitor SVG inside the name
-      : `<span class="site-favicon" style="background-image:url('${faviconUrl(domain)}');"></span>`;
+      : `<img class="site-favicon" src="${faviconUrl(domain)}" data-fallback="${faviconUrlBare(domain)}" alt="">`;
     return `
     <div class="site-row" ${info.native ? 'title="Native macOS app (via local bridge)"' : ''}>
       <span class="site-tier" style="background:${TIER_COLORS[info.tier]}"></span>
@@ -655,6 +674,20 @@ document.getElementById("hourlyDetail").addEventListener("click", (e) => {
     document.querySelectorAll(".hourly-bar.active").forEach(b => b.classList.remove("active"));
   }
 });
+
+// Favicon fallback — if the www-form URL fails (Chrome's cache miss), retry
+// with the bare-domain form. Captured at body level so it catches all
+// .site-favicon imgs regardless of which container they're in.
+document.body.addEventListener("error", (e) => {
+  const img = e.target;
+  if (img.tagName === "IMG" && img.classList.contains("site-favicon")) {
+    const fallback = img.dataset.fallback;
+    if (fallback && img.src !== fallback) {
+      img.dataset.fallback = ""; // single-shot, prevent loop
+      img.src = fallback;
+    }
+  }
+}, true); // capture phase — error events don't bubble
 
 // ── Export helpers ─────────────────────────────────────────────────────
 
