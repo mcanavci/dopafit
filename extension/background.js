@@ -6,9 +6,34 @@ function getToday() {
 }
 
 // ─── STATE ────────────────────────────────────────────────────────────
+//
+// MV3 service workers go to sleep after ~30 s of inactivity. In-memory
+// state (currentTab, isIdle) is wiped on every revival, so we persist it to
+// chrome.storage.session — which survives worker restarts within the browser
+// session but is wiped on Chrome restart (perfect for transient tracking
+// state, never touches disk).
 
-let currentTab = null;    // { domain, tier, url, startTime }
+let currentTab = null;    // { domain, tier, url, startTime, sessionStart }
 let isIdle = false;
+
+// On module load (every worker revival), restore state from session storage.
+// Handlers `await ready` before processing so they never operate on stale null.
+const ready = (async () => {
+  try {
+    const stored = await chrome.storage.session.get(["currentTab", "isIdle"]);
+    if (stored.currentTab) currentTab = stored.currentTab;
+    if (typeof stored.isIdle === "boolean") isIdle = stored.isIdle;
+  } catch (e) { /* session API not available — degrade silently */ }
+})();
+
+async function persistState() {
+  try {
+    await chrome.storage.session.set({
+      currentTab: currentTab || null,
+      isIdle: !!isIdle,
+    });
+  } catch (e) { /* ignore */ }
+}
 
 // ─── TRACKING ─────────────────────────────────────────────────────────
 
@@ -286,22 +311,25 @@ async function startTracking(url) {
 
   if (!url || url.startsWith("chrome://") || url.startsWith("chrome-extension://") || url.startsWith("about:")) {
     currentTab = null;
+    await persistState();
     return;
   }
 
   const { domain, tier } = getTierForUrl(url);
-  if (!domain) { currentTab = null; return; }
+  if (!domain) { currentTab = null; await persistState(); return; }
 
   // Keep the streak going if the user just hops between same-tier sites
   // (twitter.com → instagram.com is still doomscrolling). Reset on tier change.
   const sessionStart = (prev && prev.tier === tier) ? prev.sessionStart : Date.now();
   currentTab = { domain, tier, url, startTime: Date.now(), sessionStart };
+  await persistState();
 }
 
 // ─── EVENT LISTENERS ──────────────────────────────────────────────────
 
 // Tab switched
 chrome.tabs.onActivated.addListener(async (activeInfo) => {
+  await ready;
   try {
     const tab = await chrome.tabs.get(activeInfo.tabId);
     if (tab.url) await startTracking(tab.url);
@@ -310,6 +338,7 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
 
 // URL changed in current tab
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+  await ready;
   if (changeInfo.url && tab.active) {
     await startTracking(changeInfo.url);
   }
@@ -317,9 +346,11 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 
 // Window focus changed
 chrome.windows.onFocusChanged.addListener(async (windowId) => {
+  await ready;
   if (windowId === chrome.windows.WINDOW_ID_NONE) {
     await flushCurrent();
     currentTab = null;
+    await persistState();
   } else {
     try {
       const [tab] = await chrome.tabs.query({ active: true, windowId });
@@ -331,11 +362,14 @@ chrome.windows.onFocusChanged.addListener(async (windowId) => {
 // Idle detection — pause tracking when user is away
 chrome.idle.setDetectionInterval(60); // 60 seconds
 chrome.idle.onStateChanged.addListener(async (state) => {
+  await ready;
   if (state === "idle" || state === "locked") {
     isIdle = true;
     await flushCurrent();
+    await persistState();
   } else {
     isIdle = false;
+    await persistState();
     // Resume tracking current tab
     try {
       const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -344,16 +378,37 @@ chrome.idle.onStateChanged.addListener(async (state) => {
   }
 });
 
-// Periodic flush every 30 seconds (service worker keepalive)
+// Periodic flush every 30 seconds (also keeps the service worker alive).
+//
+// Critical fix: when the worker has been asleep and the alarm wakes it, the
+// `ready` promise restores currentTab from session storage so the elapsed
+// time is credited correctly. We also re-sync with the actual active tab in
+// case the user switched during worker downtime.
 chrome.alarms.create("flush", { periodInMinutes: 0.5 });
 chrome.alarms.onAlarm.addListener(async (alarm) => {
-  if (alarm.name === "flush") {
-    await flushCurrent();
-    await maybeNotifyStreak();
-    // Reset startTime to avoid double-counting; sessionStart stays put.
-    if (currentTab) {
-      currentTab.startTime = Date.now();
-    }
+  if (alarm.name !== "flush") return;
+  await ready;
+
+  // Re-sync with the actual active tab. If the user switched during worker
+  // downtime, this triggers a flush of the old tab and starts a new session.
+  if (!isIdle) {
+    try {
+      const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+      if (tab?.url) {
+        const fresh = getTierForUrl(tab.url);
+        if (!currentTab || currentTab.domain !== fresh.domain) {
+          await startTracking(tab.url);
+        }
+      }
+    } catch {}
+  }
+
+  await flushCurrent();
+  await maybeNotifyStreak();
+  // Reset startTime to avoid double-counting; sessionStart stays put.
+  if (currentTab) {
+    currentTab.startTime = Date.now();
+    await persistState();
   }
 });
 
