@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 48" fill="none">
+  <!-- Mark on the left — same three-arc D as logo-mark.svg, scaled. -->
+  <g transform="translate(8 12)" stroke="#2C2C2A" stroke-linecap="round" fill="none">
+    <path d="M 6 4.2  A 9 9 0 0 1  6 19.8" stroke-width="2.0"/>
+    <path d="M 6 7    A 6 6 0 0 1  6 17"   stroke-width="2.0"/>
+    <path d="M 6 9.8  A 3 3 0 0 1  6 14.2" stroke-width="2.0"/>
+  </g>
+
+  <!-- Wordmark, set in the popup's own type stack. The slight weight contrast
+       (Dopa = 600, Fitness = 400) borrows Claude.ai's title-case rhythm. -->
+  <g transform="translate(40 30)" fill="#2C2C2A" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif">
+    <text font-size="22" font-weight="600" letter-spacing="-0.4">Dopa</text>
+    <text x="58" font-size="22" font-weight="400" letter-spacing="-0.2" fill="#5F5E5A">Fitness</text>
+  </g>
+</svg>

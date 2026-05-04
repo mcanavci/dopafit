@@ -1,0 +1,21 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Local data (the running tracker writes here)
+~/.dopaminebar/
+
+# Build artifacts (regenerated from sources)
+ship/dopafit-*.zip
+
+# Old extension copy (the dual mirror used during dev)
+../dopamine-load-extension/

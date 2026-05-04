@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>dopaFit — Why these tiers?</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+    color: #2C2C2A;
+    background: #fff;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+    line-height: 1.55;
+    font-size: 14px;
+  }
+  h1 { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+  h1 + .sub { color: #888780; font-size: 12px; margin-bottom: 36px; }
+  h2 {
+    font-size: 12px; font-weight: 600; color: #888780;
+    text-transform: uppercase; letter-spacing: 0.6px;
+    margin: 36px 0 12px; padding-bottom: 6px;
+    border-bottom: 0.5px solid #F1EFE8;
+  }
+  h3 { font-size: 14px; font-weight: 600; margin: 14px 0 4px; }
+  p { margin-bottom: 10px; }
+  ul { margin: 6px 0 12px 20px; }
+  li { margin-bottom: 4px; }
+  cite, .src { color: #888780; font-size: 11px; font-style: normal; }
+  a { color: #2C2C2A; }
+
+  /* The tier ladder */
+  .ladder { margin: 8px 0 20px; }
+  .tier-card {
+    border-left: 4px solid;
+    padding: 12px 14px 14px;
+    margin-bottom: 10px;
+    background: #F9F8F6;
+    border-radius: 0 8px 8px 0;
+  }
+  .tier-card.high   { border-color: #E24B4A; }
+  .tier-card.medium { border-color: #BA7517; }
+  .tier-card.low    { border-color: #0F6E56; }
+  .tier-name {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.7px;
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .tier-card.high   .tier-name { color: #E24B4A; }
+  .tier-card.medium .tier-name { color: #BA7517; }
+  .tier-card.low    .tier-name { color: #0F6E56; }
+  .tier-tag { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .tier-meta { font-size: 12px; color: #5F5E5A; margin-top: 8px; }
+
+  /* Visual budget ladder */
+  .budget-row {
+    display: grid;
+    grid-template-columns: 70px 1fr 100px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+  .budget-label { font-weight: 600; }
+  .budget-bar { height: 14px; border-radius: 3px; background: #F1EFE8; position: relative; }
+  .budget-bar > span {
+    position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px;
+  }
+  .budget-meta { font-variant-numeric: tabular-nums; color: #5F5E5A; }
+
+  /* The criteria 3-col */
+  .crit { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 12px 0 4px; }
+  .crit-col { background: #F9F8F6; padding: 12px; border-radius: 8px; font-size: 12px; }
+  .crit-col h4 {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.6px;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .crit-col.high   h4 { color: #E24B4A; }
+  .crit-col.medium h4 { color: #BA7517; }
+  .crit-col.low    h4 { color: #0F6E56; }
+  .crit-col ul { margin: 0 0 0 16px; }
+
+  /* Callout for AI section */
+  .callout {
+    border: 1px solid #F1EFE8; border-radius: 8px; padding: 14px;
+    background: #FCFBF9; margin-top: 8px; font-size: 13px;
+  }
+  .callout h3 { margin-top: 0; }
+
+  /* Source list */
+  .sources { font-size: 11px; color: #5F5E5A; }
+  .sources li { margin-bottom: 3px; }
+
+  .footer { margin-top: 40px; padding-top: 16px; border-top: 0.5px solid #F1EFE8;
+            font-size: 11px; color: #888780; }
+</style>
+</head>
+<body>
+
+<h1>Why these tiers?</h1>
+<div class="sub">How dopaFit classifies activity, and what counts as healthy.</div>
+
+<!-- ─── The ladder ─── -->
+<h2>The three-tier ladder</h2>
+<div class="ladder">
+
+  <div class="tier-card high">
+    <div class="tier-name">High spike</div>
+    <div class="tier-tag">Slot-machine mechanics. Designed to be hard to stop.</div>
+    <p>Variable reward. Infinite scroll. Parasocial hooks. The loop runs whether you're aware or not.</p>
+    <p><strong>What's in it:</strong> Twitter/X, Instagram, TikTok, Facebook, Threads, Snapchat, doomscroll news (HN, CNN, BBC, Daily Mail), Tinder/Bumble/Hinge, betting (DraftKings, Bet365), YouTube Shorts URLs.</p>
+    <div class="tier-meta"><strong>Healthy budget:</strong> &lt; 30 min/day. Threshold matches Hunt et al. 2018 (n=143) — limiting social media to 30 min/day reduced loneliness and depression in a 3-week RCT.</div>
+  </div>
+
+  <div class="tier-card medium">
+    <div class="tier-name">Medium spike</div>
+    <div class="tier-tag">Semi-intentional. Real value, but easy to overshoot.</div>
+    <p>You opened it for a reason. The question is whether you closed it for a reason too. Session length is the failure mode here, not the activity itself.</p>
+    <p><strong>What's in it:</strong> YouTube, Netflix, Twitch, Spotify, Reddit, Quora, Substack, Discord, Slack, WhatsApp Web, shopping (Amazon, Etsy, AliExpress), <strong>AI tools (Claude, ChatGPT, Gemini, Perplexity, Copilot, v0, Lovable)</strong>, finance scrolling (TradingView, Yahoo Finance), LinkedIn.</p>
+    <div class="tier-meta"><strong>Healthy budget:</strong> &lt; 90 min/day total, with no single session over 45 min. AI sub-threshold: ~27 min/day (MIT/OpenAI RCT, n=981).</div>
+  </div>
+
+  <div class="tier-card low">
+    <div class="tier-name">Positive (high-leverage)</div>
+    <div class="tier-tag">Effortful. Build, work, study, research. Positive dopamine that compounds.</div>
+    <p>Output exceeds consumption. Requires deliberate attention. Doesn't hijack reward systems.</p>
+    <p><strong>What's in it:</strong> Code editors and dev sites (GitHub, GitLab, StackOverflow, MDN, npm, Vercel, Supabase), work tools (Notion, Linear, Figma, Google Docs, Calendar, Mail), learning (Coursera, Khan Academy, Brilliant, LeetCode, freeCodeCamp), research (Wikipedia, Scholar, arXiv).</p>
+    <div class="tier-meta"><strong>Healthy budget:</strong> No cap. Break every ~90 min (ultradian cycles, Kleitman BRAC). Sustained focus past 90 min without a break degrades — even on productive work.</div>
+  </div>
+</div>
+
+<!-- ─── Visual budget ladder ─── -->
+<h2>Daily budget at a glance</h2>
+<div class="budget-row">
+  <div class="budget-label" style="color:#E24B4A;">High</div>
+  <div class="budget-bar"><span style="width:8%;background:#E24B4A;"></span></div>
+  <div class="budget-meta">&lt; 30 min</div>
+</div>
+<div class="budget-row">
+  <div class="budget-label" style="color:#BA7517;">Medium</div>
+  <div class="budget-bar"><span style="width:25%;background:#BA7517;"></span></div>
+  <div class="budget-meta">&lt; 90 min</div>
+</div>
+<div class="budget-row">
+  <div class="budget-label" style="color:#0F6E56;">Low</div>
+  <div class="budget-bar"><span style="width:100%;background:#0F6E56;"></span></div>
+  <div class="budget-meta">no cap</div>
+</div>
+<div class="budget-row">
+  <div class="budget-label" style="color:#2C2C2A;">Total rec.</div>
+  <div class="budget-bar"><span style="width:33%;background:#2C2C2A;"></span></div>
+  <div class="budget-meta">&lt; 120 min</div>
+</div>
+<p style="font-size:11px;color:#888780;margin-top:8px;">Bars are scaled to a 6-hour reference. "Total rec." = high + medium combined; the WHO/AAP general adult target is under 2 hours of recreational screen time per day on top of work screens.</p>
+
+<!-- ─── Classification criteria ─── -->
+<h2>How a domain lands in a tier</h2>
+<p>I classify a site by whichever set of criteria it best satisfies. When it's borderline, I bias toward the more conservative tier.</p>
+
+<div class="crit">
+  <div class="crit-col high">
+    <h4>High</h4>
+    <ul>
+      <li>Variable, unpredictable reward</li>
+      <li>Infinite feed / autoplay</li>
+      <li>Engineered for hard-to-stop</li>
+      <li>Parasocial / social-validation hooks</li>
+    </ul>
+  </div>
+  <div class="crit-col medium">
+    <h4>Medium</h4>
+    <ul>
+      <li>Genuine utility for some uses</li>
+      <li>Easy to keep going past intent</li>
+      <li>Session length is the failure mode</li>
+      <li>Includes AI chat — see below</li>
+    </ul>
+  </div>
+  <div class="crit-col low">
+    <h4>Positive</h4>
+    <ul>
+      <li>Requires effort to use</li>
+      <li>Output &gt; consumption ratio</li>
+      <li>No reward-system hijack</li>
+      <li>Build, work, study, research</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ─── AI callout ─── -->
+<h2>Why AI tools are in medium, not low</h2>
+<div class="callout">
+  <h3>The most-contested classification.</h3>
+  <p>The intuition says: "Claude is a productivity tool, like GitHub." The research disagrees:</p>
+  <ul>
+    <li><strong>MIT/OpenAI RCT, n=981, 4 weeks (2025):</strong> Above ~27 min/day of ChatGPT use correlates with more loneliness, more emotional dependence, and <em>less</em> real-world socialization. Effect is dose-dependent.</li>
+    <li><strong>METR study, 2025:</strong> Developers <em>think</em> AI makes them 20% faster. Measured: 19% slower. A 40-point perception gap. This is the vibe-coding tell.</li>
+    <li><strong>GitClear 2025</strong> (211M lines, 2020–2024): Code churn up, refactoring down, code clones up 8× in 2024. Output quality drops even when output speed feels great.</li>
+    <li><strong>Microsoft / CMU survey, 2025:</strong> Higher AI confidence ↔ less critical-thinking effort. Authors literally use the word <em>atrophied</em>.</li>
+    <li><strong>CHI 2025 — "Dark Addiction Patterns of AI Chatbot Interfaces":</strong> Maps slot-machine mechanics (variable reward, near-miss, sycophancy as social reward) onto LLM UIs.</li>
+  </ul>
+  <p><strong>Verdict.</strong> AI is not social media — there's no scroll loop. But AI is not pure productivity either — there's real cognitive offloading and dose-dependent dependence. Medium tier with a 45-min session-streak alert is the honest middle. The streak alert mirrors the literature: sub-45-min sessions are typically task-mode; beyond that is where the perception gap and dependence patterns kick in.</p>
+</div>
+
+<!-- ─── Benchmark ─── -->
+<h2>Healthy benchmark per person (adults)</h2>
+<p>Numbers below are <em>recreational</em> screen time — on top of whatever work-screen time your job requires. Productive (low tier) does not count toward the recreational total.</p>
+<table style="width:100%; border-collapse:collapse; font-size:13px;">
+  <thead>
+    <tr style="border-bottom:0.5px solid #F1EFE8;">
+      <th style="text-align:left; padding:8px 0; font-weight:600;">Category</th>
+      <th style="text-align:left; padding:8px 0; font-weight:600;">Daily target</th>
+      <th style="text-align:left; padding:8px 0; font-weight:600;">Source</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:0.5px solid #F9F8F6;">
+      <td style="padding:8px 0;">High tier (social, doomscroll, betting)</td>
+      <td style="padding:8px 0;"><strong>&lt; 30 min</strong></td>
+      <td style="padding:8px 0; color:#5F5E5A;">Hunt et al. 2018, J. Soc. Clin. Psychology</td>
+    </tr>
+    <tr style="border-bottom:0.5px solid #F9F8F6;">
+      <td style="padding:8px 0;">Medium tier (video, forums, shopping, AI)</td>
+      <td style="padding:8px 0;"><strong>&lt; 90 min</strong></td>
+      <td style="padding:8px 0; color:#5F5E5A;">Triangulated; AAP/WHO adult guidelines</td>
+    </tr>
+    <tr style="border-bottom:0.5px solid #F9F8F6;">
+      <td style="padding:8px 0;">— AI chat sub-budget</td>
+      <td style="padding:8px 0;"><strong>~27 min</strong></td>
+      <td style="padding:8px 0; color:#5F5E5A;">MIT/OpenAI RCT 2025 (arxiv 2503.17473)</td>
+    </tr>
+    <tr style="border-bottom:0.5px solid #F9F8F6;">
+      <td style="padding:8px 0;">Total recreational (high + medium)</td>
+      <td style="padding:8px 0;"><strong>&lt; 120 min</strong></td>
+      <td style="padding:8px 0; color:#5F5E5A;">WHO / AHA general adult guidance</td>
+    </tr>
+    <tr style="border-bottom:0.5px solid #F9F8F6;">
+      <td style="padding:8px 0;">Low tier (productive)</td>
+      <td style="padding:8px 0;"><strong>no cap</strong></td>
+      <td style="padding:8px 0; color:#5F5E5A;">— but break every ~90 min (Kleitman BRAC)</td>
+    </tr>
+    <tr>
+      <td style="padding:8px 0;">Single continuous session, any tier</td>
+      <td style="padding:8px 0;"><strong>&lt; 45–90 min</strong></td>
+      <td style="padding:8px 0; color:#5F5E5A;">Ultradian rhythm research; sleep / focus literature</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ─── Sources ─── -->
+<h2>Sources</h2>
+<ol class="sources">
+  <li>Hunt, M.G. et al. (2018). <em>No More FOMO: Limiting Social Media Decreases Loneliness and Depression</em>. J. Social and Clinical Psychology.</li>
+  <li>MIT Media Lab × OpenAI (2025). <em>How AI and Human Behaviors Shape Psychosocial Effects of Chatbot Use</em>. arXiv:2503.17473.</li>
+  <li>METR (2025). Vibe-coding measurement study — developer self-perception vs. measured throughput.</li>
+  <li>GitClear (2025). <em>AI Assistant Code Quality 2025</em>. 211M lines analyzed, 2020–2024.</li>
+  <li>Microsoft Research / CMU (2025). <em>The Impact of Generative AI on Critical Thinking</em>. Survey of 319 knowledge workers.</li>
+  <li>Various authors (CHI 2025). <em>Dark Addiction Patterns of Current AI Chatbot Interfaces</em>. ACM DL 10.1145/3706599.3720003.</li>
+  <li>Kleitman, N. — Basic Rest-Activity Cycle (BRAC) / ultradian rhythm framework.</li>
+  <li>WHO / American Academy of Pediatrics — recreational screen-time guidance for adults and youth.</li>
+</ol>
+
+<div class="footer">
+  Numbers are starting points, not commandments. Tune them in <code>background.js</code> and the score formula in <code>popup.js</code>. The product is the classifier — keep editing it.
+</div>
+
+</body>
+</html>

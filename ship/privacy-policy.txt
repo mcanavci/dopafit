@@ -1,0 +1,41 @@
+dopaFit — Privacy Policy
+Last updated: 2026-05-03
+
+dopaFit is a Chrome extension that classifies your browsing into dopamine tiers (high spike, medium, positive) and displays your daily score. This page describes exactly what data we touch.
+
+WHAT WE COLLECT
+- The URL of your active tab (host-only — we extract the domain, e.g. "youtube.com").
+- The duration you spend on each domain.
+- The hour of day each visit occurred.
+- Notification events fired by the extension.
+
+We do not collect: page contents, search queries, form data, passwords, your name, your email, your IP address, or any identifier.
+
+WHERE THE DATA LIVES
+All data is stored locally in your browser using the chrome.storage.local API. It is sandboxed to this extension and stays on your device. It does not leave your computer, full stop. There is no server, no cloud sync, no backend.
+
+WHAT WE DO NOT DO
+- We do not have analytics on the extension. We do not know who installed it.
+- We do not transmit any data to any third party.
+- We do not fingerprint, track, or profile users.
+- We do not use cookies.
+- We do not sell, share, or rent any data — there is no data leaving your device to share.
+
+YOUR CONTROL
+- Click "Reset today" in the popup footer to delete today's data immediately.
+- Uninstall the extension to delete ALL stored data — there is no other place it lives. Removal is the nuclear option and is final.
+- Export your data as Markdown or CSV at any time via the footer download menu, before deleting.
+- Per-day or per-domain deletion is on the v0.2 roadmap.
+
+DATA RETENTION
+The extension keeps the most recent 90 days of daily summaries. Older data is automatically purged on Chrome startup.
+
+CHILDREN
+dopaFit is not directed at children under 13.
+
+CHANGES
+This policy may be updated for clarity. The version date at the top will reflect any change. There is no scenario in which an update would change the privacy posture — local-only, no transmission is core to the product.
+
+CONTACT
+Questions: github.com/mcanavci/dopafit/issues
+Source code: github.com/mcanavci/dopafit

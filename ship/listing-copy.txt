@@ -1,0 +1,131 @@
+═══════════════════════════════════════════════════════════════
+dopaFit — Chrome Web Store listing copy (paste-ready)
+═══════════════════════════════════════════════════════════════
+
+
+─── EXTENSION NAME ────────────────────────────────────────────
+This is what shows in search results. Already set in manifest.json.
+
+dopaFit – Dopamine Tracker & Screen Score
+
+
+─── SHORT SUMMARY (max 132 chars — paste into "Single-purpose summary") ─
+Track your daily dopamine score — see which sites spike, drain, or focus you. 100% local, no login, no data sent anywhere.
+
+
+─── CATEGORY ──────────────────────────────────────────────────
+Productivity
+
+
+─── DETAILED DESCRIPTION (paste into the long-description field) ─
+
+A dopamine tracker for your browser. See your daily dopamine score, track which sites spike or drain your focus, and protect the cognitive surplus that gets you through hard work. 100% local, no login, no data ever leaves your device.
+
+—
+
+WHY THIS EXISTS
+
+The modern internet is engineered to spike your dopamine. Slot-machine feeds, autoplay loops, infinite scroll, sycophantic AI chats — every screen is competing for the same neurotransmitter you need to do hard, meaningful work.
+
+Most days, the people who built the addictions win. You sit down to ship a product, write a paper, learn a skill, build a company — and four hours later you're 38 tabs deep with no commits and a faint residue of shame.
+
+dopaFit is the opposite of a blocker. It's a fitness tracker for your dopamine. It shows you, honestly, where your day went — what you fed your brain, what built you up vs what hollowed you out. Awareness compounds. The dopamine score gets better when you make better trades, not when an app slaps a wall up at the wrong moment.
+
+The goal isn't less screen time. The goal is more of the screen time that compounds — building, working, studying, researching, creating — and less of the screen time that costs you your edge.
+
+Whatever you're trying to achieve — shipping software, writing a book, getting hired, getting fit, parenting better, anything — the dopamine economy decides whether you have the cognitive surplus to do it. dopaFit helps you protect that surplus.
+
+—
+
+YOUR DATA STAYS YOURS — PRIVACY BY ARCHITECTURE
+
+This isn't a marketing claim. It's the architecture.
+
+• No account. No login, email, or signup — ever.
+• No cloud. Everything lives in your browser's local storage. No server exists.
+• No analytics. We don't know who installed this, when you opened it, or what you saw.
+• No telemetry. The extension never makes a single outbound network call.
+• Open source. Every line is on GitHub — read it, fork it, audit it yourself.
+• Reset today wipes a day. Uninstall wipes everything. Nothing else stores your data anywhere else, because nothing else exists.
+
+Most "wellness trackers" sell or analyze your data. dopaFit can't, because it doesn't have your data. We chose a category-leading position by simply refusing to participate in the surveillance economy. This is a digital wellness tool, not a digital surveillance tool.
+
+—
+
+AND YOU CAN ACTUALLY USE THE DATA
+
+Local-first means more access, not less. Most "wellness trackers" lock the rich data in their cloud and show you the leftovers. dopaFit gives you all of it:
+
+• In-app: Today / 7 days / 30 days views with score, mood, hourly profile, top sites.
+• Markdown export — full daily report, structured for any tool.
+• CSV export — raw rows for spreadsheets.
+• Daily auto-save to your Downloads folder.
+• Copy for AI — one click puts your full report on the clipboard with an analysis prompt prefix. Paste into Claude or any LLM for personalized insight on your dopamine patterns. Your data, your AI, your choice.
+• Roadmap: Claude MCP integration so the LLM can query your local data directly.
+
+The data is more useful because you control it.
+
+—
+
+HOW IT WORKS
+
+dopaFit watches what you browse and shows where your day actually went. It classifies every site into three dopamine tiers based on its mechanic:
+
+🔴 HIGH SPIKE — slot-machine feeds (social media, doomscroll news, betting). Budget: 30 min/day.
+🟠 MEDIUM SPIKE — semi-intentional time-sinks (video, AI tools, online shopping). Budget: 90 min/day.
+🟢 POSITIVE — high-leverage build, work, study, research. No cap, but break every ~3 hours.
+
+A dopamine score (0–100) tells you how the day is going. A 45-minute streak alert pings you mid-binge on YouTube or Claude. A 3-hour deep-work alert tells you to step away after a long focused session. A hard daily limit at 60 min of high-spike use locks the score for the day — there are limits to what awareness can recover.
+
+Recency tracking matters too: 3 separate 10-minute Twitter sessions are worse than 1 single 30-minute session, because frequency reinforces the dopamine loop. dopaFit penalizes back-to-back checking patterns and rewards self-control via well-spaced sessions.
+
+—
+
+WHAT'S DIFFERENT FROM A BLOCKER
+
+Awareness, not blocking. Most extensions in this category — StayFocusd, BlockSite, Cold Turkey — slap up a wall. dopaFit shows you the pattern, then lets you decide. The classifier and budgets are based on real research:
+
+• MIT/OpenAI 2025 RCT (n=981) — AI chat use above 27 min/day correlates with dependence patterns. That's why AI tools sit in the medium tier, not productive.
+• Hunt et al. 2018 — limiting social media to 30 min/day reduced loneliness and depression in a 3-week trial. That's our high-tier daily budget.
+• METR 2025 — developers feel 20% faster with AI; measured 19% slower. The vibe-coding trap.
+• GitClear 2025 — 8x rise in code clones with AI use. Output speed up, output quality down.
+
+dopaFit is a dopamine detox tool that doesn't lecture you. It just shows the data and trusts you to read it.
+
+—
+
+PERMISSIONS — WHY EACH IS NEEDED
+
+• tabs / activeTab — read which tab is active and its URL, to classify the site.
+• storage — store your daily totals locally in the browser.
+• alarms — sample your active tab every 30 seconds in the background.
+• idle — pause tracking when you walk away (no input >60s).
+• notifications — fire a streak alert when you're mid-binge.
+• downloads — let you export reports and auto-save daily.
+• favicon — show small site logos in your top-sites list, served from Chrome's local cache (no outbound fetch).
+
+We do NOT request permission to "read all data on websites you visit" — only the URL and tab title. We never read page contents.
+
+—
+
+KEYWORDS
+
+dopamine tracker, dopamine score, dopamine detox, screen time tracker, digital wellness, focus tracker, productivity score, browser usage tracker, distraction-free browsing, mental fitness, cognitive surplus, privacy-first, local-only, open source, no analytics.
+
+—
+
+WHAT'S NEXT
+
+This is v0.1.0 — Chrome on macOS / Windows / Linux. The mission is bigger than the browser. Your devices are how you spend your day, and dopamine fitness is a whole-life thing — so the roadmap goes:
+
+• v0.2 — optional macOS companion that tracks native desktop apps too (Cursor, Claude Desktop, Terminal, iTerm). Already built; ships when the extension proves itself.
+• v0.3 — iOS Safari extension to cover the phone.
+• v0.4 — Claude / MCP integration: ask Claude "how was my week?" and it pulls your data directly. No copy-paste, no backend.
+• v1.0 — multi-device dopamine tracker. One honest number, one honest report.
+
+The intent is a long-running tool for people who care about their cognitive surplus — anyone trying to build, create, learn, ship, parent, or grow. The brain you train this year is the work you ship next year.
+
+GitHub: github.com/mcanavci/dopafit
+
+
+═══════════════════════════════════════════════════════════════

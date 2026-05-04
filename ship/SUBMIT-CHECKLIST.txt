@@ -1,0 +1,108 @@
+═══════════════════════════════════════════════════════════════
+ dopaFit v0.1.0 — Ship checklist (target: tomorrow)
+═══════════════════════════════════════════════════════════════
+
+
+─── WHAT'S IN THIS FOLDER ────────────────────────────────────
+
+  • dopafit-v0.1.0.zip       ← upload this to the Web Store
+  • listing-copy.txt              ← paste-ready store listing copy
+  • privacy-policy.txt            ← host this somewhere public
+  • brand.md                      ← brand system reference
+  • logo-mark.svg                 ← square mark, scales clean
+  • logo-wordmark.svg             ← mark + wordmark for landing pages
+
+
+─── PRE-SUBMISSION (15 min) ──────────────────────────────────
+
+[ ] Capture screenshots (1280×800 each, 3-5 total):
+        1. Today tab — score ring, mood word, strip, top sites
+        2. The streak alert in action (use real data)
+        3. About tab — tier definitions
+        4. 7-day trend chart with summary card
+        5. Footer with the download dropdown open
+
+    HOW: Open the popup, Cmd+Shift+4, drag a tight rectangle.
+    Use the ones with real data — looks more credible than empty.
+
+[ ] Host privacy-policy.txt at a public URL.
+    Easiest: paste into a new public Gist on github.com/<you>,
+    copy the *raw* URL.
+
+[ ] Replace placeholders:
+        listing-copy.txt:        mcanavci          → your GitHub user
+        privacy-policy.txt:      github.com/mcanavci/dopafit/issues   → contact email
+                                 mcanavci          → your GitHub user
+
+[ ] (Optional) Make a 440×280 promotional tile
+    Crop the popup screenshot or use logo-wordmark.svg + brand color
+
+
+─── SUBMITTING ───────────────────────────────────────────────
+
+1. https://chrome.google.com/webstore/devconsole
+2. Sign in. Pay the one-time $5 dev fee (credit card).
+3. New Item → upload  dopafit-v0.1.0.zip
+4. Fill the form:
+        Name:               dopaFit
+        Summary:            (paste from listing-copy.txt)
+        Description:        (paste detailed description)
+        Category:           Productivity
+        Language:           English (United States)
+        Privacy policy URL: (your hosted gist raw URL)
+        Screenshots:        upload 3-5
+5. Privacy practices section:
+        ✓ "We use chrome.storage to save user data locally."
+        ✗ Don't tick any data-sharing claims.
+6. Submit.
+
+Review takes 1-3 business days for first-time accounts.
+
+
+─── PUBLISH GITHUB REPO (in parallel, 10 min) ────────────────
+
+[ ] Create a public repo on github.com/<you>/dopafit
+[ ] Push from this folder:
+        cd /Users/<user>/Downloads/claudecode_demo
+        git init
+        git add .gitignore LICENSE README.md extension bridge ship
+        git commit -m "Initial release: v0.1.0"
+        git branch -M main
+        git remote add origin git@github.com:mcanavci/dopafit.git
+        git push -u origin main
+[ ] Add a one-paragraph description to the repo settings.
+[ ] Pin it on your profile.
+
+
+─── AFTER APPROVAL (do these the day it goes live) ───────────
+
+[ ] Tweet/X — one short line + 5-second screen recording.
+        ~ "Built a Chrome extension that grades my browsing day
+           by dopamine tier. Score, streak alerts, fully local.
+           dopaFit — {link}"
+
+[ ] Reddit:
+        - r/productivity   (genuine, conversational)
+        - r/digitalminimalism
+        - r/getdisciplined
+
+[ ] Hacker News (Show HN, Tuesday 7am Pacific is best window).
+
+[ ] Indie Hackers — long-form post about the build.
+
+[ ] Update README.md "Install" section with the live Web Store URL.
+
+[ ] Bookmark the dev console — you'll watch installs roll in.
+
+
+─── KNOWN LIMITATIONS (be honest in launch posts) ─────────────
+
+• Browser-only (no native Mac apps in v0.1 — bridge ships v0.2).
+• Chrome desktop only (no iOS — Apple platform constraint).
+• No sync across machines yet — data lives per-device.
+
+These are all on the roadmap. The free, local, no-login posture is
+deliberate, not a constraint.
+
+
+═══════════════════════════════════════════════════════════════

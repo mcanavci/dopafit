@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+  <!--
+    dopaFit logo mark.
+    Three open arcs at staggered radii form the silhouette of a "D" while
+    suggesting a dopamine dial — three tiers, layered. Outermost = high
+    (warm, larger sweep). Innermost = positive (small, calm, green-tinted
+    on dark backgrounds via context).
+
+    24x24 viewBox so it scales cleanly from 16px favicon to 1024px hero.
+    Stroke is currentColor so the mark inherits the popup text color
+    (#2C2C2A on light cream backgrounds; can be overridden inline).
+  -->
+  <g stroke="currentColor" stroke-linecap="round" fill="none">
+    <!-- Outer ring — the high-spike tier (largest sweep, longest arc) -->
+    <path d="M 6 4.2  A 9 9 0 0 1  6 19.8"  stroke-width="2.0"/>
+    <!-- Middle ring — the medium tier -->
+    <path d="M 6 7    A 6 6 0 0 1  6 17"    stroke-width="2.0"/>
+    <!-- Inner ring — the positive (high-leverage) tier; shortest, calmest -->
+    <path d="M 6 9.8  A 3 3 0 0 1  6 14.2"  stroke-width="2.0"/>
+  </g>
+</svg>
