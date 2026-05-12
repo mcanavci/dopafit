@@ -108,12 +108,6 @@ We do NOT request permission to "read all data on websites you visit" — only t
 
 —
 
-KEYWORDS
-
-dopamine tracker, dopamine score, dopamine detox, screen time tracker, digital wellness, focus tracker, productivity score, browser usage tracker, distraction-free browsing, mental fitness, cognitive surplus, privacy-first, local-only, open source, no analytics.
-
-—
-
 WHAT'S NEXT
 
 This is v0.1.0 — Chrome on macOS / Windows / Linux. The mission is bigger than the browser. Your devices are how you spend your day, and dopamine fitness is a whole-life thing — so the roadmap goes:

@@ -23,6 +23,9 @@ __pycache__/
 # Local data (the running tracker writes here)
 ~/.dopaminebar/
 
+# Unrelated personal tooling — never commit to this repo
+companies/
+
 # Build artifacts (regenerated from sources)
 ship/dopafit-*.zip
 
